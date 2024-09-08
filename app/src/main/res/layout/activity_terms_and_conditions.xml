@@ -8,6 +8,11 @@
     tools:context=".TermsAndConditionsActivity"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/primary_layout"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

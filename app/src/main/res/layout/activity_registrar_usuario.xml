@@ -5,9 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
+    tools:context=".RegistrarUsuarioActivity"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/toolbar"
@@ -17,12 +16,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingresar Usuario"
+        android:text="Nombre Usuario"
         android:textSize="20sp"
         />
 
     <EditText
-        android:id="@+id/etUsuario"
+        android:id="@+id/etCrearUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -33,12 +32,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ingresar Contraseña"
+        android:text="Mail"
         android:textSize="20sp"
         />
 
     <EditText
-        android:id="@+id/etpassword"
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        tools:text="Mail@gmail.com"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear Contraseña"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:id="@+id/etCrearPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
@@ -46,33 +61,28 @@
         android:inputType="textPassword"
         />
 
-    <CheckBox
-        android:id="@+id/cbRecordarUsuario"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recordar Usuario"
+        android:text="Repetir Contraseña"
+        android:textSize="20sp"
         />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/etCrearPasswordRepetido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:textSize="15sp"
+        android:layout_margin="10dp"
+        android:inputType="textPassword"
+        />
 
-        <Button
-            android:id="@+id/btnRegistrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Registrarse"
-            android:layout_weight="0.5"
-            />
-
-        <Button
-            android:id="@+id/btnIniciarSesion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Iniciar Sesion"
-            android:layout_weight="0.5"
-            />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnCrearUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crear Usuario"
+        android:layout_margin="10dp"
+        />
 
 </LinearLayout>

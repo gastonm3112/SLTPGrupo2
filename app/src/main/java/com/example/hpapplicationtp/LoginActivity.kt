@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -19,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var cbRecordarUsuario: CheckBox
     lateinit var btnRegistar: Button
     lateinit var btnIniciarSesion: Button
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,11 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        //Tooolbar
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.title = resources.getString(R.string.titulo)
+
         // Variables tomadas desde el id de activity_login.xml
         etUsuario = findViewById(R.id.etUsuario)
         etPassword = findViewById(R.id.etpassword)
@@ -38,10 +45,9 @@ class LoginActivity : AppCompatActivity() {
 
         // Funcionalidad Boton registrarse
         btnRegistar.setOnClickListener {
-            Toast.makeText(this, "TODO - Crear Usuario", Toast.LENGTH_SHORT).show()
-            // TODO Tiene que apuntar a RegistrarActivity
-            //val intent =  Intent(this, TermsAndContionsActivity::class.java)
-            //startActivity(intent)
+            // Toast.makeText(this, "TODO - Crear Usuario", Toast.LENGTH_SHORT).show()
+            val intent =  Intent(this, TermsAndConditionsActivity::class.java)
+            startActivity(intent)
         }
 
         // Funcionalidad Boton Iniciar Sesion

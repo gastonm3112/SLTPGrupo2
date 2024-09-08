@@ -6,11 +6,13 @@ import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class TermsAndConditionsActivity : AppCompatActivity() {
     lateinit var btnAceptarTerminos: Button
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +24,16 @@ class TermsAndConditionsActivity : AppCompatActivity() {
             insets
         }
 
+        //Tooolbar
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar!!.title = resources.getString(R.string.titulo)
+
         btnAceptarTerminos = findViewById(R.id.btnAceptarTerminos)
 
         btnAceptarTerminos.setOnClickListener {
             Log.i("TODO", "Se Aceptaron los terminos y condiciones")
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, RegistrarUsuarioActivity::class.java)
             startActivity(intent)
             finish()
         }
