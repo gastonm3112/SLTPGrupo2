@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HPApplicationTP</string>
+    <string name="item_listado">Listado de personajes de HP</string>
+    <string name="titulo">Listado de personajes de harry potter</string>
 </resources>

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.HPApplicationTP"
         tools:targetApi="31">
         <activity
+            android:name=".ListHpCharacterActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
