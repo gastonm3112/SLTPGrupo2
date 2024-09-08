@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.title = resources.getString(R.string.titulo)
@@ -47,5 +47,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
+
+        saludarUsuario()
+    }
+
+    private fun saludarUsuario() {
+        val bundle: Bundle? = intent.extras
+
+        if (bundle != null){
+            val nombreUsuario = bundle?.getString("Nombre")
+            Toast.makeText(this, "Bienvenido/a $nombreUsuario", Toast.LENGTH_SHORT).show()
+        }
     }
 }
