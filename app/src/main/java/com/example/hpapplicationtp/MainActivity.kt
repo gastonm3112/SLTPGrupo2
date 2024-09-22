@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = resources.getString(R.string.titulo)
 
+        saludarUsuario()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,8 +49,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
-
-        saludarUsuario()
     }
 
     private fun saludarUsuario() {
