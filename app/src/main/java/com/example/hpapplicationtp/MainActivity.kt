@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         val bundle: Bundle? = intent.extras
 
         if (bundle != null){
-            val nombreUsuario = bundle?.getString("Nombre")
+            val nombreUsuario = bundle?.getString(resources.getString(R.string.nombre_usuario))
             Toast.makeText(this, "Bienvenido/a $nombreUsuario", Toast.LENGTH_SHORT).show()
         }
     }

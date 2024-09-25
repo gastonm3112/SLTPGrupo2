@@ -43,6 +43,23 @@ class LoginActivity : AppCompatActivity() {
         btnRegistar = findViewById(R.id.btnRegistrar)
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion)
 
+        // Creamos la variable preferencias, donde su contenido seran string
+        // siendo estos una forma local de guardar usuario y contrasenia, si no existe la crea
+        var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales),
+            MODE_PRIVATE)
+
+        // traemos el dato usuario y clave en variables propias
+        var usuarioGuardado = preferencias.getString(resources.getString(R.string.nombre_usuario),"")
+        var passwordGuardado = preferencias.getString(resources.getString(R.string.password_usuario),"")
+
+        // Validamos para evitar inconvenientes, que no sean vacios y nunca nulos dichas variables
+        if(usuarioGuardado != "" && passwordGuardado!= "" ){
+            if(usuarioGuardado != null){
+                startMainActivity(usuarioGuardado)
+            }
+        }
+
+
         // Funcionalidad Boton registrarse
         btnRegistar.setOnClickListener {
             // Toast.makeText(this, "TODO - Crear Usuario", Toast.LENGTH_SHORT).show()
@@ -60,15 +77,23 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             } else {
                 if(cbRecordarUsuario.isChecked) {
-                    Log.i("TODO", "Funcionalidad Recordar usuario y contraseña")
+                    var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales), MODE_PRIVATE)
+                    preferencias.edit().putString(resources.getString(R.string.nombre_usuario),usuario).apply()
+                    preferencias.edit().putString(resources.getString(R.string.password_usuario),password).apply()
                 }
+                // Reducimos codigo creando la funcion startMainActivity
+                startMainActivity(usuario)
 
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("Nombre", usuario)
-                startActivity(intent)
-                finish()
             }
 
         }
+    }
+
+    // implementamos la funcion de iniciar la activity pricipal
+    private fun startMainActivity(usuario: String){
+        val intent = Intent(this,MainActivity::class.java)
+        intent.putExtra(resources.getString(R.string.nombre_usuario),usuario)
+        startActivity(intent)
+        finish() // no queda en memoria la activty login, al ir atras, sale de la activity
     }
 }
