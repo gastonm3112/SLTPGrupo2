@@ -52,6 +52,8 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
                 if (passwordUsuario != passwordUsuarioRepetido) {
                     Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 } else {
+                    val newUser = Usuario(nombreUsuario, passwordUsuario, mailUsuario)
+                    AppDatabase.getDatabase(this).usuarioDao().insertUsuario(newUser)
                     Toast.makeText(this, "Usuario Registrado", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)

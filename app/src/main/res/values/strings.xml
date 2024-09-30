@@ -2,6 +2,12 @@
     <string name="app_name">HPApplicationTP</string>
     <string name="item_listado">Lista personajes de Harry Potter</string>
     <string name="titulo">Personajes de Harry Potter</string>
+
+    <!-- Nos permitira almacenar estos valores como shared preference -->
+    <string name="nombre_usuario">NOMBRE</string>
+    <string name="password_usuario">PASSWORD</string>
+    <string name="sp_credenciales">SP_CREDENCIALES</string>
+
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet. Sed dolores iusto est commodi omnis in internos quisquam et asperiores suscipit. Qui officia animi non consequuntur optio eos reprehenderit quasi ex accusantium reiciendis aut natus rerum eum doloremque natus. Est ipsam ipsam qui voluptas natus eum consequatur mollitia qui dolorem sapiente aut optio vitae sit incidunt voluptas At quis nesciunt.
         Ad placeat inventore est dolorum ipsam aut voluptas quod. Quo facere quibusdam est tempore officiis est sint deserunt sit atque ipsa. Est maiores repudiandae vel voluptatem delectus nam magni facere sit voluptas cupiditate? Sed incidunt aperiam qui sapiente explicabo quo illo voluptas ea illum saepe ad quidem quia sed nihil omnis quo delectus quis.
         Et voluptatem fugiat ut blanditiis totam et cumque distinctio ut repudiandae deleniti ab sint porro qui odit voluptates aut voluptatem quidem. Vel voluptatibus amet ad velit provident ut Quis sint 33 necessitatibus nostrum est asperiores veritatis.
@@ -16,4 +22,5 @@
         Eum omnis repellendus et quod nostrum non totam nihil in commodi rerum! Sed odio alias et adipisci voluptatem qui similique voluptatem et quas corrupti non quas amet. Et totam asperiores qui molestiae distinctio sed quia Quis qui porro dolor ex quia cumque.
         In doloremque suscipit eos consectetur suscipit sed iusto sapiente a dolore debitis ea ipsum rerum! Aut facere internos aut quasi laborum ut porro quae in quod sunt. Id deleniti cumque eos reprehenderit porro aut dolor ullam. Quo exercitationem rerum qui minus autem qui expedita nisi non maxime alias aut incidunt repellat et dignissimos voluptas.
     </string>
+    <string name="volver">volver</string>
 </resources>

@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.title = resources.getString(R.string.titulo)
 
+        saludarUsuario()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -47,15 +49,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         return super.onOptionsItemSelected(item)
-
-        saludarUsuario()
     }
 
     private fun saludarUsuario() {
         val bundle: Bundle? = intent.extras
 
         if (bundle != null){
-            val nombreUsuario = bundle?.getString("Nombre")
+            val nombreUsuario = bundle?.getString(resources.getString(R.string.nombre_usuario))
             Toast.makeText(this, "Bienvenido/a $nombreUsuario", Toast.LENGTH_SHORT).show()
         }
     }

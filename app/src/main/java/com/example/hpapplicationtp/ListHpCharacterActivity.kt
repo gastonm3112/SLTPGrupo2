@@ -1,6 +1,9 @@
 package com.example.hpapplicationtp
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -40,4 +43,23 @@ class ListHpCharacterActivity : AppCompatActivity() {
         personajes.add(Personaje(3,"Draco Malfoy","vacio", "human", "male","Slytherin","05-06-1980","1980","true","pure-blood","grey","blonde", "hawthron unicorn tail hair","vacio","false","Tom Felton","vacio","true","foto"))
         return personajes
     }
+
+
+
+    // Accion boton volver
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_back,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.item_volver){
+            var intent = Intent (this,MainActivity::class.java)
+            startActivity(intent)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 }
