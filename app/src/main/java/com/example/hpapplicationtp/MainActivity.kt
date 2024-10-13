@@ -48,6 +48,19 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ListHpCharacterActivity::class.java)
             startActivity(intent)
         }
+
+        if(item.itemId == R.id.item_cerrar_sesion){
+            val preferencias = getSharedPreferences(
+                resources.getString(R.string.sp_credenciales),
+                MODE_PRIVATE
+            )
+            preferencias.edit().clear().apply()
+            Toast.makeText(this, "Datos eliminados - Cerrando Sesion", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         return super.onOptionsItemSelected(item)
     }
 

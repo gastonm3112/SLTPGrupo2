@@ -87,21 +87,25 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             } else {
                 // Verifica si existe el usuario en la base de datos
-                if (verificarUsuario(nombreUsuario, passwordUsuario)){
-                    Toast.makeText(this, "Logueado correctamente", Toast.LENGTH_SHORT).show()
-
+                if (verificarUsuario(usuario, password)){
                     if(cbRecordarUsuario.isChecked) {
-                    // Muestra notificacion al usuario
-                    mostrarNotificacionDeRecordatorio()
-                    Toast.makeText(this, "Usuario recordado", Toast.LENGTH_SHORT).show()
-                    var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales), MODE_PRIVATE)
-                    preferencias.edit().putString(resources.getString(R.string.nombre_usuario),usuario).apply()
-                    preferencias.edit().putString(resources.getString(R.string.password_usuario),password).apply()
-
+                        // Muestra notificacion al usuario
+                        mostrarNotificacionDeRecordatorio()
+                        var preferencias = getSharedPreferences(
+                            resources.getString(R.string.sp_credenciales),
+                            MODE_PRIVATE
+                        )
+                        preferencias.edit()
+                            .putString(resources.getString(R.string.nombre_usuario), usuario)
+                            .apply()
+                        preferencias.edit()
+                            .putString(resources.getString(R.string.password_usuario), password)
+                            .apply()
+                    }
                     // Reducimos codigo creando la funcion startMainActivity
                     startMainActivity(usuario)
                 } else {
-                    Toast.makeText(this, "Usuario recordado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Usuario No Encontrado", Toast.LENGTH_SHORT).show()
                 }
             }
         }
