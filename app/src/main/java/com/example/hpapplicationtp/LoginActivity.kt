@@ -1,6 +1,13 @@
 package com.example.hpapplicationtp
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -10,6 +17,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.app.NotificationCompat
@@ -124,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
             )
             //TODO: Crear icono para la notificacion
             val notificationBuilder = NotificationCompat.Builder(this, "channel_id")
-                .setSmallIcon(R.drawable.ic_notification_icon2)
+                .setSmallIcon(R.drawable.ic_notificacion)
                 .setContentTitle("Hola Usuari@")
                 .setContentText("Conoce personajes de Harry Potter")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -144,4 +152,3 @@ class LoginActivity : AppCompatActivity() {
             notificationManagerCompat.notify(notificationId, notificationBuilder.build())
         }
     }
-}
