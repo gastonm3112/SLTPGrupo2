@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 class LoginActivity : AppCompatActivity() {
     // Inicio las variables
@@ -77,6 +79,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             } else {
                 if(cbRecordarUsuario.isChecked) {
+                    // Muestra notificacion al usuario
+                    mostrarNotificacionDeRecordatorio()
+                    Toast.makeText(this, "Usuario recordado", Toast.LENGTH_SHORT).show()
                     var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales), MODE_PRIVATE)
                     preferencias.edit().putString(resources.getString(R.string.nombre_usuario),usuario).apply()
                     preferencias.edit().putString(resources.getString(R.string.password_usuario),password).apply()
@@ -95,5 +100,48 @@ class LoginActivity : AppCompatActivity() {
         intent.putExtra(resources.getString(R.string.nombre_usuario),usuario)
         startActivity(intent)
         finish() // no queda en memoria la activty login, al ir atras, sale de la activity
+    }
+
+    private fun mostrarNotificacionDeRecordatorio() {
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    "channel_id",
+                    "Nombre del Canal",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+                notificationManager.createNotificationChannel(channel)
+            }
+
+            val intentAbrir = Intent(this, MainActivity::class.java)
+            intentAbrir.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val pendingIntentAbrir = PendingIntent.getActivity(
+                this,
+                0,
+                intentAbrir,
+                PendingIntent.FLAG_IMMUTABLE
+            )
+            //TODO: Crear icono para la notificacion
+            val notificationBuilder = NotificationCompat.Builder(this, "channel_id")
+                .setSmallIcon(R.drawable.ic_notification_icon2)
+                .setContentTitle("Hola Usuari@")
+                .setContentText("Conoce personajes de Harry Potter")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntentAbrir)
+                .setAutoCancel(true)
+
+
+            val notificationManagerCompat = NotificationManagerCompat.from(this)
+            val notificationId = 1
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            }
+            notificationManagerCompat.notify(notificationId, notificationBuilder.build())
+        }
     }
 }
