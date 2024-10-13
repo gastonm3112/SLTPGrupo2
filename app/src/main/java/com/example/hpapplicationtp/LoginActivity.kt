@@ -86,19 +86,24 @@ class LoginActivity : AppCompatActivity() {
                 var mensaje = "Por favor, completar datos"
                 Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
             } else {
-                if(cbRecordarUsuario.isChecked) {
+                // Verifica si existe el usuario en la base de datos
+                if (verificarUsuario(nombreUsuario, passwordUsuario)){
+                    Toast.makeText(this, "Logueado correctamente", Toast.LENGTH_SHORT).show()
+
+                    if(cbRecordarUsuario.isChecked) {
                     // Muestra notificacion al usuario
                     mostrarNotificacionDeRecordatorio()
                     Toast.makeText(this, "Usuario recordado", Toast.LENGTH_SHORT).show()
                     var preferencias = getSharedPreferences(resources.getString(R.string.sp_credenciales), MODE_PRIVATE)
                     preferencias.edit().putString(resources.getString(R.string.nombre_usuario),usuario).apply()
                     preferencias.edit().putString(resources.getString(R.string.password_usuario),password).apply()
+
+                    // Reducimos codigo creando la funcion startMainActivity
+                    startMainActivity(usuario)
+                } else {
+                    Toast.makeText(this, "Usuario recordado", Toast.LENGTH_SHORT).show()
                 }
-                // Reducimos codigo creando la funcion startMainActivity
-                startMainActivity(usuario)
-
             }
-
         }
     }
 
@@ -108,6 +113,11 @@ class LoginActivity : AppCompatActivity() {
         intent.putExtra(resources.getString(R.string.nombre_usuario),usuario)
         startActivity(intent)
         finish() // no queda en memoria la activty login, al ir atras, sale de la activity
+    }
+
+    private fun verificarUsuario(user: String, password: String): Boolean {
+        val listaUser: List<Usuario> = AppDatabase.getDatabase(applicationContext).usuarioDao().getAll()
+        return listaUser.any { it.nombre_usuario == user && it.password == password }
     }
 
     private fun mostrarNotificacionDeRecordatorio() {
