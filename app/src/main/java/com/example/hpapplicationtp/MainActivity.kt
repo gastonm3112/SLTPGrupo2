@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PrimerFragmentoInterfaz {
 
     lateinit var toolbar: Toolbar
 
@@ -27,6 +27,10 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
+        val primerFragmento = supportFragmentManager
+            .findFragmentById(R.id.contenedor_primer_fragmento) as? PrimerFragmento
+        primerFragmento?.listener = this
         }
 
         toolbar = findViewById(R.id.toolbar)
@@ -34,6 +38,15 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.title = resources.getString(R.string.titulo)
 
         saludarUsuario()
+
+    }
+
+    override fun mostrarContenido() {
+        val segundoFragmento = SegundoFragmento()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.contenedor_segundo_fragmento, segundoFragmento)
+            .addToBackStack(null)
+            .commit()
 
     }
 
