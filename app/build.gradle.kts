@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("org.jetbrains.kotlin.kapt")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -34,12 +35,30 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    kotlin {
-        jvmToolchain(11)
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(11))
+        }
     }
+    kotlin {
+        jvmToolchain(17)
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    buildToolsVersion = "34.0.0"
 }
 
 dependencies {
+
+    /* Librerias Moshi y Retrofit */
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
+    implementation(libs.androidx.recyclerview)
+    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
