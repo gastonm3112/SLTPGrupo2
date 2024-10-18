@@ -24,4 +24,7 @@
     </string>
     <string name="volver">volver</string>
     <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="sobre_nosotros">Sobre Nosotros</string>
+    <string name="sobre_nosotros_texto">Hecho por Cristian y Gaston</string>
+    <string name="main_message">Bienvenid@ a la App de Personajes de Harry Potter\n\nPor favor, selecciona una opcion desde el menu</string>
 </resources>
