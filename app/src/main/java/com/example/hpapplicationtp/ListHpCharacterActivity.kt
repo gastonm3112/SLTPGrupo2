@@ -2,64 +2,64 @@ package com.example.hpapplicationtp
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hpapplicationtp.configurations.RetrofitClient
+import com.example.hpapplicationtp.dtos.Post
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ListHpCharacterActivity : AppCompatActivity() {
 
-    lateinit var rvPersonajes: RecyclerView
-    lateinit var personajesAdapter: PersonajesAdapter
-    lateinit var toolbar: Toolbar
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var charactersAdapter: CharactersAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_list_hp_character)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.title = resources.getString(R.string.titulo)
+        recyclerView = findViewById(R.id.recyclerViewCharacters)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        rvPersonajes = findViewById(R.id.rcPersonajes)
-        personajesAdapter = PersonajesAdapter(getPersonajes(),this)
-        rvPersonajes.adapter = personajesAdapter
-    }
-
-    private fun getPersonajes(): MutableList<Personaje>{
-        var personajes: MutableList<Personaje> = ArrayList()
-        personajes.add(Personaje(1,"Harry Potter","the Boy Who Liver", "human", "male","Gryffindor","31-07-1980","1980","true","half-blood","green","black", "wood holly phoenix tail","stag","true","Daniel Radcliffe","xx","true","foto"))
-        personajes.add(Personaje(2,"Hermione Granger","Hermy", "human", "female","Gryffindor","19-09-1979","1979","true","muggleborn","brown","brown", "vine dragon heartstring","otter","false","Emma Watson","xxx","true","foto"))
-        personajes.add(Personaje(3,"Draco Malfoy","vacio", "human", "male","Slytherin","05-06-1980","1980","true","pure-blood","grey","blonde", "hawthron unicorn tail hair","vacio","false","Tom Felton","vacio","true","foto"))
-        return personajes
-    }
-
-
-
-    // Accion boton volver
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_back,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.item_volver){
-            var intent = Intent (this,MainActivity::class.java)
+        charactersAdapter = CharactersAdapter(emptyList()) { character ->
+            // Este bloque se ejecuta cuando se hace clic en un personaje
+            val intent = Intent(this, CharacterDetailActivity::class.java)
+            intent.putExtra("character", character)
             startActivity(intent)
         }
-        return super.onOptionsItemSelected(item)
+
+        recyclerView.adapter = charactersAdapter
+
+        fetchAllCharacters()
     }
 
+    private fun fetchAllCharacters() {
+        val call = RetrofitClient.postService.getAllCharacters()
 
+        call.enqueue(object : Callback<List<Post>> {
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                if (response.isSuccessful) {
+                    val characters = response.body()
+                    characters?.let {
+                        charactersAdapter.updateCharacters(it)
+                    } ?: run {
+                        showError("No data available")
+                    }
+                } else {
+                    showError("Error: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                showError("Failed to load data: ${t.message}")
+            }
+        })
+    }
+
+    private fun showError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 }
